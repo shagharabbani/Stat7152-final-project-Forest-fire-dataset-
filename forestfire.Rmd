@@ -1,0 +1,295 @@
+---
+title: "forestfire"
+author: "Seyedeh Shaghayegh Rabbanian"
+date: "4/15/2021"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Introduction**
+
+Forest fire is a disaster that causes economic and ecological damage and human life threat. Thus predicting such critical environmental issue is essential to mitigate this threat. The fire prediction is based on the meteorological data corresponding to the critical weather elements that influence the forest fire occurrence, namely temperature, relative humidity and wind speed. 
+
+What is important to us in this study is that how much the classifier can predict the true cases (fire) correctly.
+
+**Data description and summary**
+
+The dataset includes 244 instances that regroup a data of two regions of Algeria,namely the Bejaia region located in the northeast of Algeria and the Sidi Belabbes region located in the northwest of Algeria. Each region consist of 122 instances. The data set includes 11 predictors and one binary response which consists of two classes of "fire" and "not fire". The goal is to classify the instances based on certain predictors correctly.
+The predictors are as follow:
+1. Date : (DD/MM/YYYY) Day, month ('june' to 'september'), year (2012)
+Weather data observations
+2. Temp : temperature noon (temperature max) in Celsius degrees: 22 to 42
+3. RH : Relative Humidity in %: 21 to 90
+4. Ws :Wind speed in km/h: 6 to 29
+5. Rain: total day in mm: 0 to 16.8
+FWI Components
+6. Fine Fuel Moisture Code (FFMC) index from the FWI system: 28.6 to 92.5
+7. Duff Moisture Code (DMC) index from the FWI system: 1.1 to 65.9
+8. Drought Code (DC) index from the FWI system: 7 to 220.4
+9. Initial Spread Index (ISI) index from the FWI system: 0 to 18.5
+10. Buildup Index (BUI) index from the FWI system: 1.1 to 68
+11. Fire Weather Index (FWI) Index: 0 to 31.1
+12. Classes: two classes
+
+
+First of all we read the dataset. When we check the structure of data, we can see that there are 4 character variables (date,DC, FWI and Classes).DC and FWI are indexes and they do not help us in data analysis. Converting the variables DC, FWI and date to factors lead to multiple levels which leads to problem in running methods which will be discussed later. So I decided to remove the variables date, DC and FWI.
+```{r}
+forestfire <- read.csv('C:/Users/srabba2/Desktop/forestfire.csv',header=TRUE)
+str(forestfire)
+summary(forestfire)
+dim(forestfire)
+```
+Therefore, I removed those 3 variables and start working on the dataset.
+```{r}
+forestfire_withoutfactor <- read.csv('C:/Users/srabba2/Desktop/forestfirewithoutfactor.csv',header=TRUE)
+dim(forestfire_withoutfactor)
+```
+
+
+**Procedures for data cleaning and processing**
+
+Next important step in data analysis is data cleaning. First of all, we need to see if we have any missing values in our dataset. 
+```{r}
+sum(is.na(forestfire_withoutfactor))
+```
+As we can see, there is one missing value in our dataset. We decided to remove THE instance with missing values.
+```{r}
+forestfire_withoutfactor=na.omit(forestfire_withoutfactor)
+dim(forestfire_withoutfactor)
+```
+Since one of the observations was removed from the dataset, the dimension has reduced.
+
+The next step which needs to be done is to change the structure of the response.The structure of response is converted from chracter to factor for further analysis.
+```{r}
+forestfire_withoutfactor$Classes=factor(forestfire_withoutfactor$Classes)
+str(forestfire_withoutfactor)
+```
+The next step that needs to be done is to split the dataset into training and test set. 70% of the data is randomly chosen for the training set and 30% is assigned to the test set. As we previously disscussed, we decided to remove 3 character variables from the dataset. So we will work with train_wof and test_wof o run the methods. However, to show the reason of this action, we will run one of the methods using the dataset including 3 character variables.
+```{r}
+set.seed(1)
+indx=sample (1: nrow(forestfire), size=0.7*nrow(forestfire))
+train = forestfire[indx,]
+test = forestfire[-indx,]
+```
+
+```{r}
+set.seed(1)
+indx_wof=sample (1: nrow(forestfire_withoutfactor),
+                 size=0.7*nrow(forestfire_withoutfactor))
+train_wof = forestfire_withoutfactor[indx_wof,]
+test_wof = forestfire_withoutfactor[-indx_wof,]
+```
+
+**Methods**
+
+**Tree**
+
+We applied different methods including classification tree, bagging, random forest, MARS and PRIM to our dataset.
+
+#library(rpart)
+#set.seed(1)
+#fit1 <- rpart(Classes~.,train,control=rpart.control(xval=100))
+#fit1
+#print(fit1$cptable)
+#which.min(fit1$cptable[,"xerror"])
+
+When fitting the model with the above way, it took a lot of time to run the code. Actually, I could not get results because of the high computation time. For the variables date, DC, and FWI which are factors, we have too many levels(122, 198, and 126). When splitting a predictor having q unordered values, there are 2^(q-1)-1 possible partitions into two groups. Large q leads to severe overfitting. Such variables should be avoided or collapsed to fewer levels. Since they are date and index variables, I decided to remove these three variables in my study.
+
+
+First of all, we applied a classification tree to our dataset. As we can see, the tree is two shallow and there is no need to prune the tree. Misclassification rate for the tree method is equal to 0.01369863.
+
+```{r}
+set.seed(1)
+library(rpart)
+fit1.tree=rpart(Classes~.,data=train_wof,control = rpart.control(cp=0.001,xval=50))
+
+printcp(fit1.tree)
+
+par(xpd=NA)
+plot(fit1.tree,uniform = T)
+text(fit1.tree,use.n=F)
+
+tree.misrate=rep(0,nrow(fit1.tree$cptable)-1)
+for(i in 1:(nrow(fit1.tree$cptable)-1)){
+  prune.fit1=prune(fit1.tree,cp=fit1.tree$cptable[(i+1),1])
+  pred=predict(prune.fit1,newdata=test_wof,type = "class")
+  tab=table(pred,test_wof$Classes)
+  tree.misrate=1-sum(diag(tab))/sum(tab)
+}
+
+tree.misrate
+```
+
+Then we applied bagging method to our dataset. Bagging misclassification rate error is equal to 0.01369863.
+
+**Bagging**
+
+```{r}
+library(nnet)
+B=201
+n=nrow(train_wof)
+set.seed(1)
+bootsamples=rmultinom(B,n,rep(1,n)/n)
+trees=vector(mode="list",length=B)
+pred_boot=prob_boot=matrix(0,nrow(test_wof),B)
+fit2_bagging=rpart(Classes~.,data=train_wof,control=rpart.control(cp=0.001,xval=0,maxsurrogate=0,maxcompete=0))
+for(i in 1:B){
+  trees[[i]]=update(fit2_bagging,weight=bootsamples[,i])
+  pred_boot[,i]=predict(trees[[i]],test_wof,type="class")
+  prob_boot[,i]=predict(trees[[i]],test_wof,type="prob")[,2]
+}
+bag.vote=apply(pred_boot,1,median)
+bag.prob=apply(prob_boot,1,mean)
+bag.prob2=as.numeric(bag.prob>=0.5)
+tab.bag.vote=table(bag.vote,test_wof$Classes)
+tab.bag.prob=table(bag.prob2,test_wof$Classes)
+tab.bag.vote; 1-sum(diag(tab.bag.vote))/sum(tab.bag.vote)
+tab.bag.prob; 1-sum(diag(tab.bag.prob))/sum(tab.bag.prob)
+```
+From above, we can see the misclassification rate of 201 trees on test set is  0.01369863 (using averaged probability) is equal to the single split tree on the original data. We can also calculate the area under the ROC curve (AUC) and plot the ROC graphs.
+
+```{r}
+library(AUC)
+pred.prune.tree=predict(prune(fit1.tree,cp=0.00100),test_wof,type="prob")[,2]
+auc.score1=auc(roc(pred.prune.tree,test_wof$Classes))
+auc.score1
+
+auc.score2=auc(roc(bag.prob,test_wof$Classes))
+auc.score2
+```
+The AUC score for bagging is slightly better than one split classification tree.
+
+
+**Mars**
+
+```{r}
+#set.seed(1)
+
+
+train_wof_num=train_wof
+test_wof_num=test_wof
+
+
+train_wof_num$Classes=as.numeric(train_wof$Classes)
+test_wof_num$Classes=as.numeric(test_wof$Classes)
+
+train.data.num=as.data.frame(train_wof_num)
+test.data.num=as.data.frame(test_wof_num)
+
+library(mda)
+set.seed(1)
+fit1_mars=mars(train.data.num[,1:8],train.data.num[,9])
+pred1.mars=predict(fit1_mars,test.data.num[,1:8])
+temp1=as.numeric(pred1.mars>=1)
+res1=table(temp1,test.data.num$Classes)
+1-sum(diag(res1))/sum(res1)
+
+fit2_mars=mars(train.data.num[,1:8],train.data.num[,9],degree=2)
+pred2.mars=predict(fit2_mars,test.data.num[,1:8])
+temp2=as.numeric(pred2.mars>=1)
+res2=table(temp2,test.data.num$Classes)
+1-sum(diag(res2))/sum(res2)
+
+```
+
+Misclassification rate is high when we apply the method Mars to degree=1. It will improve when we change the degree to 2.
+
+**PRIM**
+```{r}
+
+library(prim)
+set.seed(1)
+thr=1.43
+fireforest.prim <- prim.box(x=train.data.num[,1:8],y=train.data.num[,9], peel.alpha=0.05, paste.alpha=0.01,threshold=thr,threshold.type = 1)
+pred1.earth=predict(fireforest.prim,newdata=test.data.num[,1:8])
+temp1.prim=as.numeric(pred1.earth<=1)
+res1.prim=table(temp1.prim,test.data.num$Classes)
+1-sum(diag(res1.prim))/sum(res1.prim)
+
+```
+I used prim package in order to run prim. The misclassification error rate for prim model is 0.04109589.
+
+
+**Random forest**
+
+```{r}
+library(randomForest)
+set.seed(1)
+fireforest.rf=randomForest(Classes~.,data=train_wof,mtry=2,importance=TRUE)
+print(fireforest.rf)
+```
+```{r}
+library(ipred)
+set.seed(1)
+error.RF=numeric(20)
+for(i in 1:20){
+  error.RF[i]=errorest(Classes~.,data=train_wof, model=randomForest,mtry=2)$error
+}
+summary(error.RF)
+```
+When I compared the median of 10-fold CV with the OOB estimate of error rate, I concluded that they are the same(2.94%).
+
+
+```{r}
+pred.rf=predict(fireforest.rf,test_wof[,1:8])
+res.rf=table(pred.rf,test_wof$Classes)
+1-sum(diag(res.rf))/sum(res.rf)
+
+varImpPlot(fireforest.rf)
+importance(fireforest.rf)
+```
+As we can see, FFMC and ISI are the most two important variables. The misclassification error rate for random forest method is equal to 0.02739726.
+
+**SVM for classification with RBF-kernel using cross-validation**
+
+```{r}
+library(e1071)
+fireforest.svm=tune.svm(Classes~.,data=train_wof,gamma=2^(-2:0),cost = 2^(0:2),sampling="cross")
+summary(fireforest.svm)
+
+plot(fireforest.svm)
+
+fit.svm=svm(train_wof[,1:8],train_wof[,9])
+pred.svm=predict(fit.svm,test_wof[,1:8])
+tab.svm=table(pred.svm,test_wof$Classes)
+tab.svm
+1-sum(diag(tab.svm))/sum(tab.svm)
+fit.svm$nSV
+```
+The misclassification error rate for SVM method is equal to 0.05479452. Number of support vectors are 31 and 32.
+
+
+**Data analysis**
+
+If we compare the misclassification error rates of different methods, we can see that CART, Bagging, RF, PRIM and SVM have similar performance. CART and Bagging has exactly same performance. Between all these methods Mars has the worst performance.
+```{r}
+library(knitr)
+
+df <- data.frame(Method = c("CART","Bagging","Mars(default)","Mars(deg=2)","RF","SVM","PRIM"),
+                 value = c(0.01369863, 0.01369863, 0.2465753, 0.1369863, 0.02739726,
+                           0.05479452,0.04109589))
+
+print(kable(df))
+```
+
+**Results**
+
+We applied differnt methods to our dataset. It seems that our models perform well in classifying the response variable "fire" and "not fire". In CART method, we ran a single split tree. The tree does not need pruning because the tree is too shallow but successful at classifying because the misclassification error rate is not too much. 
+The results gathered from bagging method was same as CART method. Therefore, there is not much improvement in Bagging method in comparison to CART.
+Mars works better when we change the degree to 2 in comparison to Mars using its default degree value. Random forest, SVM and PRIM misclassification error rate is low in comparison to MARS. All in all, CART and Bagging have best performance between all these methods.
+
+
+
+**Discussion and conclusion**
+
+In this study, we presented a comprehensive data analysis using different methods icluding CART, PRIM, MARS, Bagging, Random forest and SVM. All the mothods have pretty good performance. CART and BAGGING had best performance. Mars had worst performance between all these methods.
+
+
+

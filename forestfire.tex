@@ -1,0 +1,866 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={forestfire},
+  pdfauthor={Seyedeh Shaghayegh Rabbanian},
+  pdfborder={0 0 0},
+  breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-2}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{forestfire}
+\author{Seyedeh Shaghayegh Rabbanian}
+\date{4/15/2021}
+
+\begin{document}
+\maketitle
+
+\textbf{Introduction}
+
+Forest fire is a disaster that causes economic and ecological damage and
+human life threat. Thus predicting such critical environmental issue is
+essential to mitigate this threat. The fire prediction is based on the
+meteorological data corresponding to the critical weather elements that
+influence the forest fire occurrence, namely temperature, relative
+humidity and wind speed.
+
+What is important to us in this study is that how much the classifier
+can predict the true cases (fire) correctly.
+
+\textbf{Data description and summary}
+
+The dataset includes 244 instances that regroup a data of two regions of
+Algeria,namely the Bejaia region located in the northeast of Algeria and
+the Sidi Belabbes region located in the northwest of Algeria. Each
+region consist of 122 instances. The data set includes 11 predictors and
+one binary response which consists of two classes of ``fire'' and ``not
+fire''. The goal is to classify the instances based on certain
+predictors correctly. The predictors are as follow: 1. Date :
+(DD/MM/YYYY) Day, month (`june' to `september'), year (2012) Weather
+data observations 2. Temp : temperature noon (temperature max) in
+Celsius degrees: 22 to 42 3. RH : Relative Humidity in \%: 21 to 90 4.
+Ws :Wind speed in km/h: 6 to 29 5. Rain: total day in mm: 0 to 16.8 FWI
+Components 6. Fine Fuel Moisture Code (FFMC) index from the FWI system:
+28.6 to 92.5 7. Duff Moisture Code (DMC) index from the FWI system: 1.1
+to 65.9 8. Drought Code (DC) index from the FWI system: 7 to 220.4 9.
+Initial Spread Index (ISI) index from the FWI system: 0 to 18.5 10.
+Buildup Index (BUI) index from the FWI system: 1.1 to 68 11. Fire
+Weather Index (FWI) Index: 0 to 31.1 12. Classes: two classes
+
+First of all we read the dataset. When we check the structure of data,
+we can see that there are 4 character variables (date,DC, FWI and
+Classes).DC and FWI are indexes and they do not help us in data
+analysis. Converting the variables DC, FWI and date to factors lead to
+multiple levels which leads to problem in running methods which will be
+discussed later. So I decided to remove the variables date, DC and FWI.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{forestfire <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'C:/Users/srabba2/Desktop/forestfire.csv'}\NormalTok{,}\DataTypeTok{header=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{str}\NormalTok{(forestfire)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    244 obs. of  12 variables:
+##  $ date       : chr  "6/1/2012" "6/2/2012" "6/3/2012" "6/4/2012" ...
+##  $ Temperature: int  29 29 26 25 27 31 33 30 25 28 ...
+##  $ RH         : int  57 61 82 89 77 67 54 73 88 79 ...
+##  $ Ws         : int  18 13 22 13 16 14 13 15 13 12 ...
+##  $ Rain       : num  0 1.3 13.1 2.5 0 0 0 0 0.2 0 ...
+##  $ FFMC       : num  65.7 64.4 47.1 28.6 64.8 82.6 88.2 86.6 52.9 73.2 ...
+##  $ DMC        : num  3.4 4.1 2.5 1.3 3 5.8 9.9 12.1 7.9 9.5 ...
+##  $ DC         : chr  "7.6" "7.6" "7.1" "6.9" ...
+##  $ ISI        : num  1.3 1 0.3 0 1.2 3.1 6.4 5.6 0.4 1.3 ...
+##  $ BUI        : num  3.4 3.9 2.7 1.7 3.9 7 10.9 13.5 10.5 12.6 ...
+##  $ FWI        : chr  "0.5" "0.4" "0.1" "0" ...
+##  $ Classes    : chr  "not fire   " "not fire   " "not fire   " "not fire   " ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(forestfire)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      date            Temperature          RH              Ws      
+##  Length:244         Min.   :22.00   Min.   :21.00   Min.   : 6.0  
+##  Class :character   1st Qu.:30.00   1st Qu.:52.00   1st Qu.:14.0  
+##  Mode  :character   Median :32.00   Median :63.00   Median :15.0  
+##                     Mean   :32.17   Mean   :61.94   Mean   :15.5  
+##                     3rd Qu.:35.00   3rd Qu.:73.25   3rd Qu.:17.0  
+##                     Max.   :42.00   Max.   :90.00   Max.   :29.0  
+##       Rain              FFMC            DMC             DC           
+##  Min.   : 0.0000   Min.   :28.60   Min.   : 0.70   Length:244        
+##  1st Qu.: 0.0000   1st Qu.:72.08   1st Qu.: 5.80   Class :character  
+##  Median : 0.0000   Median :83.50   Median :11.30   Mode  :character  
+##  Mean   : 0.7607   Mean   :77.89   Mean   :14.67                     
+##  3rd Qu.: 0.5000   3rd Qu.:88.30   3rd Qu.:20.75                     
+##  Max.   :16.8000   Max.   :96.00   Max.   :65.90                     
+##       ISI              BUI            FWI              Classes         
+##  Min.   : 0.000   Min.   : 1.10   Length:244         Length:244        
+##  1st Qu.: 1.400   1st Qu.: 6.00   Class :character   Class :character  
+##  Median : 3.500   Median :12.25   Mode  :character   Mode  :character  
+##  Mean   : 4.774   Mean   :16.66                                        
+##  3rd Qu.: 7.300   3rd Qu.:22.52                                        
+##  Max.   :19.000   Max.   :68.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{dim}\NormalTok{(forestfire)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 244  12
+\end{verbatim}
+
+Therefore, I removed those 3 variables and start working on the dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{forestfire_withoutfactor <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'C:/Users/srabba2/Desktop/forestfirewithoutfactor.csv'}\NormalTok{,}\DataTypeTok{header=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{dim}\NormalTok{(forestfire_withoutfactor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 244   9
+\end{verbatim}
+
+\textbf{Procedures for data cleaning and processing}
+
+Next important step in data analysis is data cleaning. First of all, we
+need to see if we have any missing values in our dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(forestfire_withoutfactor))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+As we can see, there is one missing value in our dataset. We decided to
+remove THE instance with missing values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{forestfire_withoutfactor=}\KeywordTok{na.omit}\NormalTok{(forestfire_withoutfactor)}
+\KeywordTok{dim}\NormalTok{(forestfire_withoutfactor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 243   9
+\end{verbatim}
+
+Since one of the observations was removed from the dataset, the
+dimension has reduced.
+
+The next step which needs to be done is to change the structure of the
+response.The structure of response is converted from chracter to factor
+for further analysis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{forestfire_withoutfactor}\OperatorTok{$}\NormalTok{Classes=}\KeywordTok{factor}\NormalTok{(forestfire_withoutfactor}\OperatorTok{$}\NormalTok{Classes)}
+\KeywordTok{str}\NormalTok{(forestfire_withoutfactor)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    243 obs. of  9 variables:
+##  $ Temperature: int  29 29 26 25 27 31 33 30 25 28 ...
+##  $ RH         : int  57 61 82 89 77 67 54 73 88 79 ...
+##  $ Ws         : int  18 13 22 13 16 14 13 15 13 12 ...
+##  $ Rain       : num  0 1.3 13.1 2.5 0 0 0 0 0.2 0 ...
+##  $ FFMC       : num  65.7 64.4 47.1 28.6 64.8 82.6 88.2 86.6 52.9 73.2 ...
+##  $ DMC        : num  3.4 4.1 2.5 1.3 3 5.8 9.9 12.1 7.9 9.5 ...
+##  $ ISI        : num  1.3 1 0.3 0 1.2 3.1 6.4 5.6 0.4 1.3 ...
+##  $ BUI        : num  3.4 3.9 2.7 1.7 3.9 7 10.9 13.5 10.5 12.6 ...
+##  $ Classes    : Factor w/ 2 levels "fire   ","not fire   ": 2 2 2 2 2 1 1 1 2 2 ...
+##  - attr(*, "na.action")= 'omit' Named int 166
+##   ..- attr(*, "names")= chr "166"
+\end{verbatim}
+
+The next step that needs to be done is to split the dataset into
+training and test set. 70\% of the data is randomly chosen for the
+training set and 30\% is assigned to the test set. As we previously
+disscussed, we decided to remove 3 character variables from the dataset.
+So we will work with train\_wof and test\_wof o run the methods.
+However, to show the reason of this action, we will run one of the
+methods using the dataset including 3 character variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{indx=}\KeywordTok{sample}\NormalTok{ (}\DecValTok{1}\OperatorTok{:}\StringTok{ }\KeywordTok{nrow}\NormalTok{(forestfire), }\DataTypeTok{size=}\FloatTok{0.7}\OperatorTok{*}\KeywordTok{nrow}\NormalTok{(forestfire))}
+\NormalTok{train =}\StringTok{ }\NormalTok{forestfire[indx,]}
+\NormalTok{test =}\StringTok{ }\NormalTok{forestfire[}\OperatorTok{-}\NormalTok{indx,]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{indx_wof=}\KeywordTok{sample}\NormalTok{ (}\DecValTok{1}\OperatorTok{:}\StringTok{ }\KeywordTok{nrow}\NormalTok{(forestfire_withoutfactor),}
+                 \DataTypeTok{size=}\FloatTok{0.7}\OperatorTok{*}\KeywordTok{nrow}\NormalTok{(forestfire_withoutfactor))}
+\NormalTok{train_wof =}\StringTok{ }\NormalTok{forestfire_withoutfactor[indx_wof,]}
+\NormalTok{test_wof =}\StringTok{ }\NormalTok{forestfire_withoutfactor[}\OperatorTok{-}\NormalTok{indx_wof,]}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Methods}
+
+\textbf{Tree}
+
+We applied different methods including classification tree, bagging,
+random forest, MARS and PRIM to our dataset.
+
+\#library(rpart) \#set.seed(1) \#fit1 \textless{}-
+rpart(Classes\textasciitilde{}.,train,control=rpart.control(xval=100))
+\#fit1 \#print(fit1\(cptable) #which.min(fit1\)cptable{[},``xerror''{]})
+
+When fitting the model with the above way, it took a lot of time to run
+the code. Actually, I could not get results because of the high
+computation time. For the variables date, DC, and FWI which are factors,
+we have too many levels(122, 198, and 126). When splitting a predictor
+having q unordered values, there are 2\^{}(q-1)-1 possible partitions
+into two groups. Large q leads to severe overfitting. Such variables
+should be avoided or collapsed to fewer levels. Since they are date and
+index variables, I decided to remove these three variables in my study.
+
+First of all, we applied a classification tree to our dataset. As we can
+see, the tree is two shallow and there is no need to prune the tree.
+Misclassification rate for the tree method is equal to 0.01369863.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(rpart)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'rpart' was built under R version 4.0.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit1.tree=}\KeywordTok{rpart}\NormalTok{(Classes}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\NormalTok{train_wof,}\DataTypeTok{control =} \KeywordTok{rpart.control}\NormalTok{(}\DataTypeTok{cp=}\FloatTok{0.001}\NormalTok{,}\DataTypeTok{xval=}\DecValTok{50}\NormalTok{))}
+
+\KeywordTok{printcp}\NormalTok{(fit1.tree)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Classification tree:
+## rpart(formula = Classes ~ ., data = train_wof, control = rpart.control(cp = 0.001, 
+##     xval = 50))
+## 
+## Variables actually used in tree construction:
+## [1] FFMC
+## 
+## Root node error: 77/170 = 0.45294
+## 
+## n= 170 
+## 
+##        CP nsplit rel error xerror     xstd
+## 1 0.96104      0  1.000000 1.0000 0.084289
+## 2 0.00100      1  0.038961 0.1039 0.035858
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{xpd=}\OtherTok{NA}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(fit1.tree,}\DataTypeTok{uniform =}\NormalTok{ T)}
+\KeywordTok{text}\NormalTok{(fit1.tree,}\DataTypeTok{use.n=}\NormalTok{F)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{forestfire_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tree.misrate=}\KeywordTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\KeywordTok{nrow}\NormalTok{(fit1.tree}\OperatorTok{$}\NormalTok{cptable)}\OperatorTok{-}\DecValTok{1}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{(}\KeywordTok{nrow}\NormalTok{(fit1.tree}\OperatorTok{$}\NormalTok{cptable)}\OperatorTok{-}\DecValTok{1}\NormalTok{))\{}
+\NormalTok{  prune.fit1=}\KeywordTok{prune}\NormalTok{(fit1.tree,}\DataTypeTok{cp=}\NormalTok{fit1.tree}\OperatorTok{$}\NormalTok{cptable[(i}\OperatorTok{+}\DecValTok{1}\NormalTok{),}\DecValTok{1}\NormalTok{])}
+\NormalTok{  pred=}\KeywordTok{predict}\NormalTok{(prune.fit1,}\DataTypeTok{newdata=}\NormalTok{test_wof,}\DataTypeTok{type =} \StringTok{"class"}\NormalTok{)}
+\NormalTok{  tab=}\KeywordTok{table}\NormalTok{(pred,test_wof}\OperatorTok{$}\NormalTok{Classes)}
+\NormalTok{  tree.misrate=}\DecValTok{1}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(tab))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(tab)}
+\NormalTok{\}}
+
+\NormalTok{tree.misrate}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.01369863
+\end{verbatim}
+
+Then we applied bagging method to our dataset. Bagging misclassification
+rate error is equal to 0.01369863.
+
+\textbf{Bagging}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(nnet)}
+\NormalTok{B=}\DecValTok{201}
+\NormalTok{n=}\KeywordTok{nrow}\NormalTok{(train_wof)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{bootsamples=}\KeywordTok{rmultinom}\NormalTok{(B,n,}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,n)}\OperatorTok{/}\NormalTok{n)}
+\NormalTok{trees=}\KeywordTok{vector}\NormalTok{(}\DataTypeTok{mode=}\StringTok{"list"}\NormalTok{,}\DataTypeTok{length=}\NormalTok{B)}
+\NormalTok{pred_boot=prob_boot=}\KeywordTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{,}\KeywordTok{nrow}\NormalTok{(test_wof),B)}
+\NormalTok{fit2_bagging=}\KeywordTok{rpart}\NormalTok{(Classes}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\NormalTok{train_wof,}\DataTypeTok{control=}\KeywordTok{rpart.control}\NormalTok{(}\DataTypeTok{cp=}\FloatTok{0.001}\NormalTok{,}\DataTypeTok{xval=}\DecValTok{0}\NormalTok{,}\DataTypeTok{maxsurrogate=}\DecValTok{0}\NormalTok{,}\DataTypeTok{maxcompete=}\DecValTok{0}\NormalTok{))}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{B)\{}
+\NormalTok{  trees[[i]]=}\KeywordTok{update}\NormalTok{(fit2_bagging,}\DataTypeTok{weight=}\NormalTok{bootsamples[,i])}
+\NormalTok{  pred_boot[,i]=}\KeywordTok{predict}\NormalTok{(trees[[i]],test_wof,}\DataTypeTok{type=}\StringTok{"class"}\NormalTok{)}
+\NormalTok{  prob_boot[,i]=}\KeywordTok{predict}\NormalTok{(trees[[i]],test_wof,}\DataTypeTok{type=}\StringTok{"prob"}\NormalTok{)[,}\DecValTok{2}\NormalTok{]}
+\NormalTok{\}}
+\NormalTok{bag.vote=}\KeywordTok{apply}\NormalTok{(pred_boot,}\DecValTok{1}\NormalTok{,median)}
+\NormalTok{bag.prob=}\KeywordTok{apply}\NormalTok{(prob_boot,}\DecValTok{1}\NormalTok{,mean)}
+\NormalTok{bag.prob2=}\KeywordTok{as.numeric}\NormalTok{(bag.prob}\OperatorTok{>=}\FloatTok{0.5}\NormalTok{)}
+\NormalTok{tab.bag.vote=}\KeywordTok{table}\NormalTok{(bag.vote,test_wof}\OperatorTok{$}\NormalTok{Classes)}
+\NormalTok{tab.bag.prob=}\KeywordTok{table}\NormalTok{(bag.prob2,test_wof}\OperatorTok{$}\NormalTok{Classes)}
+\NormalTok{tab.bag.vote; }\DecValTok{1}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(tab.bag.vote))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(tab.bag.vote)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         
+## bag.vote fire    not fire   
+##        1      44           1
+##        2       0          28
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 0.01369863
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tab.bag.prob; }\DecValTok{1}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(tab.bag.prob))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(tab.bag.prob)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          
+## bag.prob2 fire    not fire   
+##         0      44           1
+##         1       0          28
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 0.01369863
+\end{verbatim}
+
+From above, we can see the misclassification rate of 201 trees on test
+set is 0.01369863 (using averaged probability) is equal to the single
+split tree on the original data. We can also calculate the area under
+the ROC curve (AUC) and plot the ROC graphs.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(AUC)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## AUC 0.3.0
+\end{verbatim}
+
+\begin{verbatim}
+## Type AUCNews() to see the change log and ?AUC to get an overview.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.prune.tree=}\KeywordTok{predict}\NormalTok{(}\KeywordTok{prune}\NormalTok{(fit1.tree,}\DataTypeTok{cp=}\FloatTok{0.00100}\NormalTok{),test_wof,}\DataTypeTok{type=}\StringTok{"prob"}\NormalTok{)[,}\DecValTok{2}\NormalTok{]}
+\NormalTok{auc.score1=}\KeywordTok{auc}\NormalTok{(}\KeywordTok{roc}\NormalTok{(pred.prune.tree,test_wof}\OperatorTok{$}\NormalTok{Classes))}
+\NormalTok{auc.score1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.9827586
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{auc.score2=}\KeywordTok{auc}\NormalTok{(}\KeywordTok{roc}\NormalTok{(bag.prob,test_wof}\OperatorTok{$}\NormalTok{Classes))}
+\NormalTok{auc.score2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+
+The AUC score for bagging is slightly better than one split
+classification tree.
+
+\textbf{Mars}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#set.seed(1)}
+
+
+\NormalTok{train_wof_num=train_wof}
+\NormalTok{test_wof_num=test_wof}
+
+
+\NormalTok{train_wof_num}\OperatorTok{$}\NormalTok{Classes=}\KeywordTok{as.numeric}\NormalTok{(train_wof}\OperatorTok{$}\NormalTok{Classes)}
+\NormalTok{test_wof_num}\OperatorTok{$}\NormalTok{Classes=}\KeywordTok{as.numeric}\NormalTok{(test_wof}\OperatorTok{$}\NormalTok{Classes)}
+
+\NormalTok{train.data.num=}\KeywordTok{as.data.frame}\NormalTok{(train_wof_num)}
+\NormalTok{test.data.num=}\KeywordTok{as.data.frame}\NormalTok{(test_wof_num)}
+
+\KeywordTok{library}\NormalTok{(mda)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'mda' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{verbatim}
+## Loading required package: class
+\end{verbatim}
+
+\begin{verbatim}
+## Loaded mda 0.5-2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{fit1_mars=}\KeywordTok{mars}\NormalTok{(train.data.num[,}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{],train.data.num[,}\DecValTok{9}\NormalTok{])}
+\NormalTok{pred1.mars=}\KeywordTok{predict}\NormalTok{(fit1_mars,test.data.num[,}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{])}
+\NormalTok{temp1=}\KeywordTok{as.numeric}\NormalTok{(pred1.mars}\OperatorTok{>=}\DecValTok{1}\NormalTok{)}
+\NormalTok{res1=}\KeywordTok{table}\NormalTok{(temp1,test.data.num}\OperatorTok{$}\NormalTok{Classes)}
+\DecValTok{1}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(res1))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(res1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2465753
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit2_mars=}\KeywordTok{mars}\NormalTok{(train.data.num[,}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{],train.data.num[,}\DecValTok{9}\NormalTok{],}\DataTypeTok{degree=}\DecValTok{2}\NormalTok{)}
+\NormalTok{pred2.mars=}\KeywordTok{predict}\NormalTok{(fit2_mars,test.data.num[,}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{])}
+\NormalTok{temp2=}\KeywordTok{as.numeric}\NormalTok{(pred2.mars}\OperatorTok{>=}\DecValTok{1}\NormalTok{)}
+\NormalTok{res2=}\KeywordTok{table}\NormalTok{(temp2,test.data.num}\OperatorTok{$}\NormalTok{Classes)}
+\DecValTok{1}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(res2))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(res2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.1369863
+\end{verbatim}
+
+Misclassification rate is high when we apply the method Mars to
+degree=1. It will improve when we change the degree to 2.
+
+\textbf{PRIM}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(prim)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'prim' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{thr=}\FloatTok{1.43}
+\NormalTok{fireforest.prim <-}\StringTok{ }\KeywordTok{prim.box}\NormalTok{(}\DataTypeTok{x=}\NormalTok{train.data.num[,}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{],}\DataTypeTok{y=}\NormalTok{train.data.num[,}\DecValTok{9}\NormalTok{], }\DataTypeTok{peel.alpha=}\FloatTok{0.05}\NormalTok{, }\DataTypeTok{paste.alpha=}\FloatTok{0.01}\NormalTok{,}\DataTypeTok{threshold=}\NormalTok{thr,}\DataTypeTok{threshold.type =} \DecValTok{1}\NormalTok{)}
+\NormalTok{pred1.earth=}\KeywordTok{predict}\NormalTok{(fireforest.prim,}\DataTypeTok{newdata=}\NormalTok{test.data.num[,}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{])}
+\NormalTok{temp1.prim=}\KeywordTok{as.numeric}\NormalTok{(pred1.earth}\OperatorTok{<=}\DecValTok{1}\NormalTok{)}
+\NormalTok{res1.prim=}\KeywordTok{table}\NormalTok{(temp1.prim,test.data.num}\OperatorTok{$}\NormalTok{Classes)}
+\DecValTok{1}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(res1.prim))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(res1.prim)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.04109589
+\end{verbatim}
+
+I used prim package in order to run prim. The misclassification error
+rate for prim model is 0.04109589.
+
+\textbf{Random forest}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(randomForest)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'randomForest' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{verbatim}
+## randomForest 4.6-14
+\end{verbatim}
+
+\begin{verbatim}
+## Type rfNews() to see new features/changes/bug fixes.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{fireforest.rf=}\KeywordTok{randomForest}\NormalTok{(Classes}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\NormalTok{train_wof,}\DataTypeTok{mtry=}\DecValTok{2}\NormalTok{,}\DataTypeTok{importance=}\OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{print}\NormalTok{(fireforest.rf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+##  randomForest(formula = Classes ~ ., data = train_wof, mtry = 2,      importance = TRUE) 
+##                Type of random forest: classification
+##                      Number of trees: 500
+## No. of variables tried at each split: 2
+## 
+##         OOB estimate of  error rate: 2.94%
+## Confusion matrix:
+##             fire    not fire    class.error
+## fire             90           3  0.03225806
+## not fire          2          75  0.02597403
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ipred)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'ipred' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{error.RF=}\KeywordTok{numeric}\NormalTok{(}\DecValTok{20}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{20}\NormalTok{)\{}
+\NormalTok{  error.RF[i]=}\KeywordTok{errorest}\NormalTok{(Classes}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\NormalTok{train_wof, }\DataTypeTok{model=}\NormalTok{randomForest,}\DataTypeTok{mtry=}\DecValTok{2}\NormalTok{)}\OperatorTok{$}\NormalTok{error}
+\NormalTok{\}}
+\KeywordTok{summary}\NormalTok{(error.RF)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+## 0.01765 0.02353 0.02941 0.02765 0.02941 0.03529
+\end{verbatim}
+
+When I compared the median of 10-fold CV with the OOB estimate of error
+rate, I concluded that they are the same(2.94\%).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pred.rf=}\KeywordTok{predict}\NormalTok{(fireforest.rf,test_wof[,}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{])}
+\NormalTok{res.rf=}\KeywordTok{table}\NormalTok{(pred.rf,test_wof}\OperatorTok{$}\NormalTok{Classes)}
+\DecValTok{1}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(res.rf))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(res.rf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.02739726
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{varImpPlot}\NormalTok{(fireforest.rf)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{forestfire_files/figure-latex/unnamed-chunk-15-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{importance}\NormalTok{(fireforest.rf)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##               fire    not fire    MeanDecreaseAccuracy MeanDecreaseGini
+## Temperature  3.805533  2.77105039             4.486193        2.7921616
+## RH           4.489024  0.74080258             3.825355        1.9503763
+## Ws           1.439520 -0.09744555             1.025438        0.5405357
+## Rain         8.011715  4.22545093             9.157039        6.5759752
+## FFMC        22.251154 19.16201295            25.205002       25.7668718
+## DMC          7.396558  4.40870138             8.182468        9.3674552
+## ISI         22.679197 19.31694605            25.116849       26.8863878
+## BUI          9.677518  5.49113645            11.398995        9.9117031
+\end{verbatim}
+
+As we can see, FFMC and ISI are the most two important variables. The
+misclassification error rate for random forest method is equal to
+0.02739726.
+
+\textbf{SVM for classification with RBF-kernel using cross-validation}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(e1071)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'e1071' was built under R version 4.0.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fireforest.svm=}\KeywordTok{tune.svm}\NormalTok{(Classes}\OperatorTok{~}\NormalTok{.,}\DataTypeTok{data=}\NormalTok{train_wof,}\DataTypeTok{gamma=}\DecValTok{2}\OperatorTok{^}\NormalTok{(}\OperatorTok{-}\DecValTok{2}\OperatorTok{:}\DecValTok{0}\NormalTok{),}\DataTypeTok{cost =} \DecValTok{2}\OperatorTok{^}\NormalTok{(}\DecValTok{0}\OperatorTok{:}\DecValTok{2}\NormalTok{),}\DataTypeTok{sampling=}\StringTok{"cross"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(fireforest.svm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Parameter tuning of 'svm':
+## 
+## - sampling method: 10-fold cross validation 
+## 
+## - best parameters:
+##  gamma cost
+##   0.25    2
+## 
+## - best performance: 0.07058824 
+## 
+## - Detailed performance results:
+##   gamma cost      error dispersion
+## 1  0.25    1 0.07647059 0.05580490
+## 2  0.50    1 0.08235294 0.04960436
+## 3  1.00    1 0.11764706 0.06200544
+## 4  0.25    2 0.07058824 0.05405509
+## 5  0.50    2 0.09411765 0.05682893
+## 6  1.00    2 0.11176471 0.07568729
+## 7  0.25    4 0.08235294 0.06323339
+## 8  0.50    4 0.09411765 0.06323339
+## 9  1.00    4 0.11764706 0.07336583
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(fireforest.svm)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{forestfire_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit.svm=}\KeywordTok{svm}\NormalTok{(train_wof[,}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{],train_wof[,}\DecValTok{9}\NormalTok{])}
+\NormalTok{pred.svm=}\KeywordTok{predict}\NormalTok{(fit.svm,test_wof[,}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{])}
+\NormalTok{tab.svm=}\KeywordTok{table}\NormalTok{(pred.svm,test_wof}\OperatorTok{$}\NormalTok{Classes)}
+\NormalTok{tab.svm}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              
+## pred.svm      fire    not fire   
+##   fire             40           0
+##   not fire          4          29
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\OperatorTok{-}\KeywordTok{sum}\NormalTok{(}\KeywordTok{diag}\NormalTok{(tab.svm))}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(tab.svm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.05479452
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit.svm}\OperatorTok{$}\NormalTok{nSV}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 31 32
+\end{verbatim}
+
+The misclassification error rate for SVM method is equal to 0.05479452.
+Number of support vectors are 31 and 32.
+
+\textbf{Data analysis}
+
+If we compare the misclassification error rates of different methods, we
+can see that CART, Bagging, RF, PRIM and SVM have similar performance.
+CART and Bagging has exactly same performance. Between all these methods
+Mars has the worst performance.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(knitr)}
+
+\NormalTok{df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{Method =} \KeywordTok{c}\NormalTok{(}\StringTok{"CART"}\NormalTok{,}\StringTok{"Bagging"}\NormalTok{,}\StringTok{"Mars(default)"}\NormalTok{,}\StringTok{"Mars(deg=2)"}\NormalTok{,}\StringTok{"RF"}\NormalTok{,}\StringTok{"SVM"}\NormalTok{,}\StringTok{"PRIM"}\NormalTok{),}
+                 \DataTypeTok{value =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.01369863}\NormalTok{, }\FloatTok{0.01369863}\NormalTok{, }\FloatTok{0.2465753}\NormalTok{, }\FloatTok{0.1369863}\NormalTok{, }\FloatTok{0.02739726}\NormalTok{,}
+                           \FloatTok{0.05479452}\NormalTok{,}\FloatTok{0.04109589}\NormalTok{))}
+
+\KeywordTok{print}\NormalTok{(}\KeywordTok{kable}\NormalTok{(df))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## 
+## |Method        |     value|
+## |:-------------|---------:|
+## |CART          | 0.0136986|
+## |Bagging       | 0.0136986|
+## |Mars(default) | 0.2465753|
+## |Mars(deg=2)   | 0.1369863|
+## |RF            | 0.0273973|
+## |SVM           | 0.0547945|
+## |PRIM          | 0.0410959|
+\end{verbatim}
+
+\textbf{Results}
+
+We applied differnt methods to our dataset. It seems that our models
+perform well in classifying the response variable ``fire'' and ``not
+fire''. In CART method, we ran a single split tree. The tree does not
+need pruning because the tree is too shallow but successful at
+classifying because the misclassification error rate is not too much.
+The results gathered from bagging method was same as CART method.
+Therefore, there is not much improvement in Bagging method in comparison
+to CART. Mars works better when we change the degree to 2 in comparison
+to Mars using its default degree value. Random forest, SVM and PRIM
+misclassification error rate is low in comparison to MARS. All in all,
+CART and Bagging have best performance between all these methods.
+
+\textbf{Discussion and conclusion}
+
+In this study, we presented a comprehensive data analysis using
+different methods icluding CART, PRIM, MARS, Bagging, Random forest and
+SVM. All the mothods have pretty good performance. CART and BAGGING had
+best performance. Mars had worst performance between all these methods.
+
+\end{document}
